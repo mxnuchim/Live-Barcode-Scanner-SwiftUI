@@ -9,9 +9,16 @@ import SwiftUI
 
 @main
 struct LiveScannerApp: App {
+    
+    @StateObject private var vm = AppViewModel()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(vm)
+                .task {
+                    await vm.requestDataScannerAccess()
+                }
         }
     }
 }
